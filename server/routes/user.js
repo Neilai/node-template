@@ -6,9 +6,9 @@ const {
 } = require('../utils/decorator')
 const {
   checkPassword
-} = require('../service/user')
+} = require('../api/user')
 
-@controller('/api/v0/user')
+@controller('/api/user')
 export class userController {
   @post('/')
   async login (ctx, next) {

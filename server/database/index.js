@@ -17,7 +17,7 @@ exports.initSchemas = () => {
 exports.initAdmin = async () => {
     const User = mongoose.model('User')
     let user = await User.findOne({
-        username: 'Scott'
+        username: 'Neil'
     })
 
     if (!user) {

@@ -2,9 +2,9 @@ const Koa = require('koa')
 const mongoose = require('mongoose')
 const views = require('koa-views')
 const { resolve } = require('path')
-const { connect, initSchemas, initAdmin } = require('./database/')
+const { connect, initSchemas, initAdmin } = require('./database/index.js')
 const R = require('ramda')
-const MIDDLEWARES = ['router']
+const MIDDLEWARES = ['router',"common"]
 
 const useMiddlewares = (app) => {index
         R.map(
@@ -25,13 +25,9 @@ const useMiddlewares = (app) => {index
 
     await initAdmin()
 
-    // require('./tasks/movie')
-    // require('./tasks/api')
-    // require('./tasks/trailer')
-    // require('./tasks/qiniu')
-
     const app = new Koa()
     await useMiddlewares(app)
-
+    console.log("start");
     app.listen(4455)
+
 })()

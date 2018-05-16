@@ -39,9 +39,6 @@ const userSchema = new Schema({
   }
 })
 
-userSchema.virtual('isLocked').get(function () {
-  return !!(this.lockUntil && this.lockUntil > Date.now())
-})
 
 userSchema.pre('save', function (next) {
   if (this.isNew) {
@@ -77,41 +74,6 @@ userSchema.methods = {
       })
     })
   },
-
-  incLoginAttepts: (user) => {
-    return new Promise((resolve, reject) => {
-      if (this.lockUntil && this.lockUntil < Date.now()) {
-        this.update({
-          $set: {
-            loginAttempts: 1
-          },
-          $unset: {
-            lockUntil: 1
-          }
-        }, (err) => {
-          if (!err) resolve(true)
-          else reject(err)
-        })
-      } else {
-        let updates = {
-          $inc: {
-            loginAttempts: 1
-          }
-        }
-
-        if (this.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && !this.isLocked) {
-          updates.$set = {
-            lockUntil: Date.now() + LOCK_TIME
-          }
-        }
-
-        this.update(updates, err => {
-          if (!err) resolve(true)
-          else reject(err)
-        })
-      }
-    })
-  }
 }
 
 mongoose.model('User', userSchema)
