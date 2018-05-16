@@ -1,7 +1,7 @@
 import bodyParser from 'koa-bodyparser'
 import logger from 'koa-logger'
 import session from 'koa-session'
-
+;
 export const addBodyParser = app => {
     app.use(bodyParser())
 }

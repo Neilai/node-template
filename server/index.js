@@ -4,9 +4,9 @@ const views = require('koa-views')
 const { resolve } = require('path')
 const { connect, initSchemas, initAdmin } = require('./database/index.js')
 const R = require('ramda')
-const MIDDLEWARES = ['router',"common"]
+const MIDDLEWARES = ['common.js',"router.js"]
 
-const useMiddlewares = (app) => {index
+const useMiddlewares = (app) => {
         R.map(
             R.compose(
                 R.forEachObjIndexed(
@@ -27,7 +27,7 @@ const useMiddlewares = (app) => {index
 
     const app = new Koa()
     await useMiddlewares(app)
-    console.log("start");
+
     app.listen(4455)
 
 })()

@@ -7,7 +7,7 @@ const { resolve } = require('path')
 
 export const router = app => {
     const apiPath = resolve(__dirname, '../routes')
+
     const router = new Route(app, apiPath)
-    console.log(123);
     router.init()
 }

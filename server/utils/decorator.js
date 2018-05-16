@@ -21,8 +21,8 @@ export class Route {
 
         for (let [conf, controller] of routerMap) {
             const controllers = isArray(controller)
-            const prefixPath = conf.target[symbolPrefix]
-            if (prefixPath) let prefixPath = normalizePath(prefixPath)
+            let prefixPath = conf.target[symbolPrefix]
+            if (prefixPath) prefixPath = normalizePath(prefixPath)
             const routerPath = prefixPath + conf.path
             this.router[conf.method](routerPath, ...controllers)
         }
@@ -74,11 +74,6 @@ export const all = path => router({
     method: 'all',
     path: path
 })
-
-const changeToArr = R.unless(
-    R.is(isArray),
-    R.of
-)
 
 const decorate = (args, middleware) => {
     let [ target, key, descriptor ] = args
@@ -147,7 +142,3 @@ export const required = rules => convert(async (ctx, next) => {
 
     await next()
 })
-
-
-
-
